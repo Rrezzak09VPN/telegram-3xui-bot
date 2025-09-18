@@ -40,13 +40,25 @@ mkdir -p /var/lib/telegram-bot
 touch /var/log/telegram-bot.log
 chmod 644 /var/log/telegram-bot.log
 
-# Копирование файлов проекта
-echo "📋 Копирование файлов проекта..."
-cp -r src/* /opt/telegram-bot/
+# Скачивание файлов проекта с GitHub
+echo "🌐 Скачивание файлов проекта с GitHub..."
+cd /opt/telegram-bot
+
+# Скачиваем основные файлы
+curl -sSL -o bot.py https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/src/bot.py
+curl -sSL -o main.py https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/src/main.py
+curl -sSL -o monitor.py https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/src/monitor.py
+curl -sSL -o ssh_monitor.py https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/src/ssh_monitor.py
+curl -sSL -o bot_ctl https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/src/bot_ctl
+curl -sSL -o requirements.txt https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/src/requirements.txt
+curl -sSL -o telegram-bot.service https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/src/telegram-bot.service
+
+# Скачиваем пример конфига
+mkdir -p /opt/telegram-bot/config
+curl -sSL -o config/config.json.example https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/config/config.json.example
 
 # Создание виртуального окружения и установка зависимостей
 echo "🐍 Создание виртуального окружения и установка зависимостей..."
-cd /opt/telegram-bot
 python3 -m venv venv
 source venv/bin/activate
 pip install --upgrade pip
@@ -65,10 +77,10 @@ echo "⚙️ Настройка systemd сервиса..."
 cp /opt/telegram-bot/telegram-bot.service /etc/systemd/system/
 systemctl daemon-reload
 
-# Создание примера конфига, если его еще нет
+# Создание примера конфига в корне проекта, если его еще нет
 if [ ! -f /opt/telegram-bot/config.json ]; then
     echo "📝 Создание примера конфигурационного файла..."
-    cp ../config/config.json.example /opt/telegram-bot/config.json
+    cp /opt/telegram-bot/config/config.json.example /opt/telegram-bot/config.json
     echo "⚠️  ВНИМАНИЕ: Вы должны отредактировать /opt/telegram-bot/config.json"
     echo "⚠️  и ввести ваши данные (токен бота, chat_id, порт и URL панели)"
 fi
@@ -100,4 +112,3 @@ echo "
 
 🎉 Готово! Бот установлен и готов к работе.
 "
-
