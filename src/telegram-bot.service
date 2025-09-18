@@ -1,0 +1,19 @@
+[Unit]
+Description=Telegram Bot for 3X-UI Monitoring
+After=network.target multi-user.target
+Wants=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/telegram-bot
+ExecStart=/opt/telegram-bot/venv/bin/python /opt/telegram-bot/main.py
+Restart=always
+RestartSec=10
+StartLimitBurst=3
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

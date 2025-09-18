@@ -1,0 +1,31 @@
+#!/bin/bash
+
+case "$1" in
+    start)
+        echo "Запуск Telegram бота..."
+        systemctl start telegram-bot.service
+        systemctl status telegram-bot.service
+        ;;
+    stop)
+        echo "Остановка Telegram бота..."
+        systemctl stop telegram-bot.service
+        systemctl status telegram-bot.service
+        ;;
+    restart)
+        echo "Перезапуск Telegram бота..."
+        systemctl restart telegram-bot.service
+        systemctl status telegram-bot.service
+        ;;
+    status)
+        echo "Статус Telegram бота:"
+        systemctl status telegram-bot.service
+        ;;
+    logs)
+        echo "Логи Telegram бота:"
+        journalctl -u telegram-bot.service -f
+        ;;
+    *)
+        echo "Использование: $0 {start|stop|restart|status|logs}"
+        exit 1
+        ;;
+esac

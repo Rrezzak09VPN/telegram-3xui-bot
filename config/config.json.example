@@ -1,0 +1,10 @@
+{
+    "telegram_token": "ВАШ_ТОКЕН_ТЕЛЕГРАМ_БОТА",
+    "owner_chat_id": ВАШ_TELEGRAM_CHAT_ID,
+    "panel_port": ВАШ_ПОРТ_3XUI_ПАНЕЛИ,
+    "panel_url": "http://IP_ВАШЕГО_СЕРВЕРА:ПОРТ_ПАНЕЛИ/ПУТЬ_К_ПАНЕЛИ",
+    "access_duration_minutes": 30,
+    "check_interval_seconds": 60,
+    "ssh_log_file": "/var/log/auth.log",
+    "log_file": "/var/log/telegram-bot.log"
+}
