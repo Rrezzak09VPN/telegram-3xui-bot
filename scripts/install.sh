@@ -22,16 +22,45 @@ fi
 
 echo "✅ Запущен под root"
 
-# Установка зависимостей
-echo "📥 Установка системных зависимостей..."
-apt update
-apt install -y python3 python3-pip python3-venv ufw jq curl
+# Проверка/установка UFW
+echo "🛡️ Проверка и установка UFW..."
+if ! command -v ufw &> /dev/null; then
+    echo "📥 UFW не найден, устанавливаем..."
+    apt update
+    apt install -y ufw
+    echo "✅ UFW установлен"
+else
+    echo "✅ UFW уже установлен"
+fi
+
+# Включение UFW
+echo "🔐 Включение UFW..."
+ufw --force enable
+systemctl start ufw
+systemctl enable ufw
+echo "✅ UFW включен и настроен на автозапуск"
 
 # Настройка UFW (открытие стандартных портов)
-echo "🛡️ Настройка UFW..."
+# Примечание: SSH открыт по умолчанию. Закройте его через бота или вручную, если необходимо.
+echo "🧱 Настройка UFW..."
 ufw allow 22/tcp comment 'SSH'
 ufw allow 443/tcp comment 'HTTPS'
 echo "✅ Стандартные порты (22, 443) разрешены в UFW"
+
+# Проверка версии Python
+MIN_PYTHON_VERSION="3.7"
+PYTHON_VERSION=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")' 2>/dev/null || echo "0.0")
+
+if [[ "$(printf '%s\n' "$MIN_PYTHON_VERSION" "$PYTHON_VERSION" | sort -V | head -n1)" != "$MIN_PYTHON_VERSION" ]]; then
+    echo "❌ Требуется Python $MIN_PYTHON_VERSION или выше. Установлен Python $PYTHON_VERSION."
+    echo "💡 Попробуйте установить Python $MIN_PYTHON_VERSION+: apt install python3.$MIN_PYTHON_VERSION-full python3.$MIN_PYTHON_VERSION-venv"
+    exit 1
+fi
+echo "✅ Python $PYTHON_VERSION подходит"
+
+# Установка системных зависимостей
+echo "📥 Установка системных зависимостей..."
+apt install -y python3-pip python3-venv jq curl
 
 # Создание структуры каталогов
 echo "📂 Создание структуры каталогов..."
@@ -91,7 +120,7 @@ echo "
 📋 Дальнейшие шаги:
 1. Отредактируйте конфигурационный файл:
    nano /opt/telegram-bot/config.json
-   
+
    Заполните следующие поля:
    - telegram_token: Токен вашего Telegram бота
    - owner_chat_id: Ваш Telegram Chat ID
