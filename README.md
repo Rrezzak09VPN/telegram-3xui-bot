@@ -29,70 +29,81 @@
 ### Шаги установки
 
 1. **Скачайте и запустите скрипт установки:**
-   ```bash
+   
+```bash
 wget -O - https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/scripts/install.sh | bash
+```
    или
-   \`\`\`bash
-   curl -sSL https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/scripts/install.sh | bash
-   \`\`\`
+```bash
+curl -sSL https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/scripts/install.sh | bash
+```
 
 2. **Настройте конфигурационный файл:**
-   После установки отредактируйте \`/opt/telegram-bot/config.json\`:
-   \`\`\`bash
-   nano /opt/telegram-bot/config.json
-   \`\`\`
+   После установки отредактируйте `/opt/telegram-bot/config.json`:
+ ```bash
+nano /opt/telegram-bot/config.json
+```
    
    Заполните следующие поля:
-   - \`telegram_token\`: Токен вашего Telegram бота (получается у @BotFather)
-   - \`owner_chat_id\`: Ваш Telegram Chat ID (узнать можно через @userinfobot)
-   - \`panel_port\`: Порт вашей 3X-UI панели (целое число от 1 до 65535)
-   - \`panel_url\`: Полный URL вашей 3X-UI панели (например, \`http://ваш_IP:порт/путь\`)
+   - `telegram_token`: Токен вашего Telegram бота (получается у @BotFather)
+   - `owner_chat_id`: Ваш Telegram Chat ID (узнать можно через @userinfobot)
+   - `panel_port`: Порт вашей 3X-UI панели (целое число от 1 до 65535)
+   - `panel_url`: Полный URL вашей 3X-UI панели (например, \`http://ваш_IP:порт/путь\`)
 
 3. **Запустите бота:**
-   \`\`\`bash
-   systemctl start telegram-bot.service
-   \`\`\`
+```bash
+systemctl start telegram-bot.service
+```
 
 4. **Проверьте статус:**
-   \`\`\`bash
-   systemctl status telegram-bot.service
-   \`\`\`
+```bash
+systemctl status telegram-bot.service
+```
 
-5. **(Опционально) Включите автозапуск:**
-   \`\`\`bash
-   systemctl enable telegram-bot.service
-   \`\`\`
+5. **Включите автозапуск:**
+ ```bash
+systemctl enable telegram-bot.service
+```
 
 ## 📋 Управление ботом
 
-Вы можете управлять ботом через вспомогательный скрипт \`/opt/telegram-bot/bot_ctl\`:
+Вы можете управлять ботом через вспомогательный скрипт `/opt/telegram-bot/bot_ctl`:
 
-\`\`\`bash
+
 # Запуск
+ ```bash
 /opt/telegram-bot/bot_ctl start
+```
 
 # Остановка
+ ```bash
 /opt/telegram-bot/bot_ctl stop
+```
 
 # Перезапуск
+ ```bash
 /opt/telegram-bot/bot_ctl restart
+```
 
 # Просмотр статуса
+ ```bash
 /opt/telegram-bot/bot_ctl status
+```
 
 # Просмотр логов в реальном времени
+```bash
 /opt/telegram-bot/bot_ctl logs
-\`\`\`
+```
 
 ## 📂 Структура проекта
 
-- \`/opt/telegram-bot/\` - Основной каталог бота
-- \`/opt/telegram-bot/config.json\` - Конфигурационный файл
-- \`/opt/telegram-bot/venv/\` - Виртуальное окружение Python
-- \`/var/log/telegram-bot.log\` - Лог-файл бота
-- \`/var/lib/telegram-bot/state.json\` - Файл состояния для мониторинга перезагрузок
-- \`/etc/systemd/system/telegram-bot.service\` - Сервисный файл systemd
+- `/opt/telegram-bot/` - Основной каталог бота
+- `/opt/telegram-bot/config.json` - Конфигурационный файл
+- `/opt/telegram-bot/venv/` - Виртуальное окружение Python
+- `/var/log/telegram-bot.log` - Лог-файл бота
+- `/var/lib/telegram-bot/state.json` - Файл состояния для мониторинга перезагрузок
+- `/etc/systemd/system/telegram-bot.service` - Сервисный файл systemd
 
 ## 📄 Лицензия
+Если что то пошло не так - Я котик, у меня лапки.🤷‍♂️
 
-MIT License
