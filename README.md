@@ -29,8 +29,8 @@
 ### Шаги установки
 
 1. **Скачайте и запустите скрипт установки:**
-   \`\`\`bash wget -O - https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/scripts/install.sh | bash
-   \`\`\`
+   ```bash
+wget -O - https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/scripts/install.sh | bash
    или
    \`\`\`bash
    curl -sSL https://raw.githubusercontent.com/Rrezzak09VPN/telegram-3xui-bot/main/scripts/install.sh | bash
